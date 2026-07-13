@@ -1,7 +1,6 @@
 # LNN (CFC) vs LSTM — UAV-SEAD Benchmark Raporu
 
 **Hazirlayan:** Yusuf Sahin
-**Hedef:** Doc. Dr. Mahmut Kaya — Firat Universitesi, Yapay Zeka ve Veri Muhendisligi
 **Tarih:** 2026-07-10
 **Veri Seti:** UAV-SEAD (arXiv 2602.13900, Kabaoglu et al. 2025)
 **Ucus:** 2018-05-26 / 16:27:25 — Normal ucus
