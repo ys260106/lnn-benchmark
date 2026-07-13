@@ -2,8 +2,6 @@
 
 > **Tarih:** 2026-07-10 | **Veri:** UAV-SEAD (2018-05-26 Normal ucus)
 > **Model:** CFC (66 parametre, w_tau ile) vs LSTM (105 parametre)
-> **Hazirlayan:** Doc. Dr. Mahmut Kaya icin -- Firat Universitesi
-
 ---
 
 ## Ozet Karsilastirma
