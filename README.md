@@ -94,5 +94,4 @@ lnn-benchmark/
 ---
 
 **Hazırlayan:** Yusuf Şahin — İnönü Üniversitesi, Bilgisayar Mühendisliği  
-**Hedef:** Doç. Dr. Mahmut Kaya — Fırat Üniversitesi, Yapay Zeka ve Veri Mühendisliği  
 **Tarih:** 2026-07-10
