@@ -1,0 +1,20 @@
+==================================================
+LNN (CFC) vs LSTM — UAV-SEAD Benchmark
+==================================================
+
+TEST 1: Sinyal Takibi
+  CFC  (66 param): MSE=0.00110022, Sure=174s
+  LSTM (105 param): MSE=0.00168501, Sure=2282s
+  Verimlilik: CFC 2.4x daha verimli
+
+TEST 2: Gurultu Filtreleme
+  %5: CFC MSE=0.05141608(0.97x) | LSTM MSE=0.08066897(1.04x)
+  %10: CFC MSE=0.05101245(0.97x) | LSTM MSE=0.09139837(1.17x)
+  %20: CFC MSE=0.05556216(1.05x) | LSTM MSE=0.12580913(1.62x)
+
+SONUC: CFC, gurultu testini 3/3 seviyede kazandi.
+
+TEST 3: Stabilizasyon
+  CFC:  Toparlanma=0.0 adim, Tepe MSE=0.040903
+  LSTM: Toparlanma=8.2 adim, Tepe MSE=0.092087
+  SONUC: CFC kazandi (infx daha hizli toparlanma)
