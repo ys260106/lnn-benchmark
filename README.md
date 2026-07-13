@@ -15,7 +15,7 @@
 | **%20 Gürültü** | MSE **0.0556** (1.05x degrade) | MSE 0.1258 (1.62x degrade) | CFC **çok daha dayanıklı** |
 | **Stabilizasyon** | **0 adım** toparlanma | 8.2 adım | CFC **anında toparlanır** |
 | **Verimlilik** | 0.073 (MSE×param) | 0.177 | CFC **2.4 kat daha verimli** |
-| **Eğitim Süresi** | **174 saniye** | 2.282 saniye (~38 dk) | CFC **13 kat daha hızlı** |
+| **Eğitim Süresi** | **174 saniye** | 2282 saniye (~38 dk) | CFC **13 kat daha hızlı** |
 
 ### ✅ CFC 3/3 testi kazandı.
 
@@ -44,9 +44,19 @@ CFC (Closed-Form Continuous-Time), sürekli-zamanlı diferansiyel denklemleri ka
 
 **w_tau mekanizması:** `τ = tanh(x·w_τ) + 1.1` ile tau dinamik olarak [0.1, 2.1] aralığında ayarlanır. Girdi anormalleştiğinde tau otomatik artar, nöron yavaşlar, bozulma sönümlenir.
 
-**Formül:** `z[t] = z[t-1]·exp(-dt/τ) + (x·w + bias)·τ·(1 - exp(-dt/τ))`
+**Formül (kodla birebir uyumlu):**
+```
+B    = x·w + bias                        (lineer drive, tanh yok)
+τ    = tanh(x·w_τ) + 1.1                 (dinamik zaman sabiti)
+a    = exp(-dt/τ)
+z[t] = z[t-1]·a + B·τ·(1-a)             (durum güncellemesi)
+y[t] = sigmoid(z[t])                     (çıktı aktivasyonu)
+```
 
-Bu formülde `dt` (zaman adımı) bizzat bulunur. dt büyükse eski bilgi daha çok unutulur, küçükse daha az — fiziksel olarak doğru.
+> **⚠️ Hasani et al. 2021'den fark:** Orijinal CFC'de drive terimi `f = tanh(Wx+b)` ile nonlineer iken bu implementasyonda **lineerdir**. Nonlineerlik, state güncellemesinden sonra `sigmoid(z[t])` ile uygulanır. Bu değişikliğin gerekçesi:
+> 1. **Büyük sapmalarda tepki:** 9 girdinin 3'ü setpoint (hedef açı). tanh koymak hata sinyalini -1/+1 arasına sıkıştırır, büyük sapmalarda tepkiyi zayıflatır. Lineer drive, hata ne kadar büyükse o kadar güçlü düzeltme sinyali üretir.
+> 2. **Sigmoid sonradan:** state üzerinde uygulanan sigmoid, çıktıyı (0,1) aralığında sınırlar. Drive'ın sınırsız olması kararlılık riski taşımaz çünkü `B·τ·(1-a)` terimi, `dt << τ` için `B·dt` Euler yaklaşımına dönüşür — fiziksel olarak birikimsiz anlık girdidir.
+> 3. **w_tau ile koruma:** Anormal girdilerde tau yükselir, `a → 1` olur, durum güncellemesi neredeyse durur. Bu doğal bir sönümleme sağlar.
 
 ---
 
